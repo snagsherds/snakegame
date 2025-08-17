@@ -67,6 +67,17 @@ def move():
 while True:
     window.update()  # Update the screen
 
+    # Check for collision with the border
+    if head.xcor() > 240 or head.xcor() < -240 or head.ycor() > 240 or head.ycor() < -240:
+        head.goto(0, 0)  # Reset the snake to the center
+        head.direction = "stop"  # Reset direction
+        # Hide all segments
+        for segment in segments:
+            segment.goto(1000, 1000)  # Move off-screen
+         # Clear the list of segments
+            segments.clear()
+
+
     if head.distance(food) < 20:
         # Move the food to a random position
         x = random.randint(-240, 240)
