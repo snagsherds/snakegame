@@ -2,7 +2,7 @@ import turtle
 import time
 import random
 
-delay = 0.1  # Delay for the game loop
+delay = 0.15  # Delay for the game loop
 
 # set up the screen
 window = turtle.Screen()
@@ -85,6 +85,9 @@ def move():
         x = head.xcor()
         head.setx(x + 20)
 
+
+
+
 #Main game Loop
 while True:
     window.update()  # Update the screen
@@ -103,7 +106,7 @@ while True:
         score = 0
         pen.clear()  # Clear the previous score display
         pen.write(f"Score: {score}    High Score: {high_score}", align="center", font=("Courier", 24, "normal"))  # Update the score display
-        
+
 
 
     if head.distance(food) < 20:
@@ -118,6 +121,9 @@ while True:
         segment.color("grey")
         segment.penup()
         segments.append(segment) 
+
+        #Shorthen the delay
+        delay -= 0.001  # Decrease the delay to speed up the game
 
         #Increase the score
         score += 10
@@ -150,6 +156,14 @@ while True:
             for segment in segments:
                 segment.goto(1000, 1000)  # Move off-screen
             segments.clear()  # Clear the list of segments
+
+            # Reset score
+            score = 0
+            #Resert delay
+            delay = 0.15  # Reset the delay to the initial value
+
+            pen.clear()  # Clear the previous score display    
+            pen.write(f"Score: {score}    High Score: {high_score}", align="center", font=("Courier", 24, "normal"))  # Update the score display
     time.sleep(delay)  # Delay to control the speed of the game
 
 window.mainloop()  # Keeps the window open
