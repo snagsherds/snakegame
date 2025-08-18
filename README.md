@@ -6,4 +6,5 @@ added head logic
 added food logic
 added body incremental value logic<br>
 border collisions added to<br>
-snake body collision added
+snake body collision added<br>
+Score added to python program
