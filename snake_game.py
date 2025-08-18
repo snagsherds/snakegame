@@ -29,8 +29,18 @@ food.shape("circle")
 food.color("red")
 food.penup()
 food.goto(0, 100)
- 
+
 segments = []  # List to hold the snake segments
+
+#Pen
+pen=turtle.Turtle()
+pen.speed(0)
+pen.shape("square") 
+pen.color("white")
+pen.penup()
+pen.hideturtle()  # Hide the pen turtle
+pen.goto(0, 210)  # Position the pen at the top
+pen.write("Score: 0    High Score: 0", align="center", font=("Courier", 24, "normal"))  # Initial score display
 
 # Functions
 def go_up():
@@ -52,6 +62,14 @@ window.onkeypress(go_up, "Up")      # Move up with Up arrow /w
 window.onkeypress(go_down, "Down")  # Move down with Down arrow /s
 window.onkeypress(go_left, "Left")  # Move left with Left arrow /a
 window.onkeypress(go_right, "Right")# Move right with Right arrow /d
+
+
+#Score
+score = 0
+high_score = 0
+
+
+
 
 def move():
     if head.direction == "up":
@@ -79,7 +97,13 @@ while True:
         for segment in segments:
             segment.goto(1000, 1000)  # Move off-screen
          # Clear the list of segments
-            segments.clear()
+        segments.clear()
+
+        #reset score
+        score = 0
+        pen.clear()  # Clear the previous score display
+        pen.write(f"Score: {score}    High Score: {high_score}", align="center", font=("Courier", 24, "normal"))  # Update the score display
+        
 
 
     if head.distance(food) < 20:
@@ -94,6 +118,14 @@ while True:
         segment.color("grey")
         segment.penup()
         segments.append(segment) 
+
+        #Increase the score
+        score += 10
+        if score > high_score:
+            high_score = score
+        pen.clear()  # Clear the previous score display    
+        pen.write(f"Score: {score}    High Score: {high_score}", align="center", font=("Courier", 24, "normal"))  # Update the score display
+
     #move the segments
     for index in range(len(segments) - 1, 0, -1):
         x = segments[index - 1].xcor()
