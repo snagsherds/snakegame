@@ -34,13 +34,17 @@ segments = []  # List to hold the snake segments
 
 # Functions
 def go_up():
-    head.direction = "up"
+    if head.direction != "down":  # Prevent the snake from going back on itself
+        head.direction = "up"
 def go_down():
-    head.direction = "down"
+    if head.direction != "up":  # Prevent the snake from going back on itself
+        head.direction = "down"
 def go_left():
-    head.direction = "left"
+    if head.direction != "right":  # Prevent the snake from going back on itself
+        head.direction = "left"
 def go_right():
-    head.direction = "right"
+    if head.direction != "left":  # Prevent the snake from going back on itself
+        head.direction = "right"
 
 # keybaindings
 window.listen()  # Listen for keyboard input
@@ -103,7 +107,17 @@ while True:
         segments[0].goto(x, y)
 
 
-    move()  # Move the snake
+    move()  # Move the 
+    
+    #CHECK FOR HEAD COLLISION WITH THE BODY
+    for segment in segments:
+        if segment.distance(head) < 20:
+            head.goto(0, 0)  # Reset the snake to the center
+            head.direction = "stop"  # Reset direction
+            # Hide all segments
+            for segment in segments:
+                segment.goto(1000, 1000)  # Move off-screen
+            segments.clear()  # Clear the list of segments
     time.sleep(delay)  # Delay to control the speed of the game
 
 window.mainloop()  # Keeps the window open
